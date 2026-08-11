@@ -59,8 +59,8 @@ func main() {
 		// На лету привязываем токен к пакету метрик
 		payload.ServerToken = agentToken
 
-		fmt.Printf(" [📊 МЕТРИКИ] CPU: %.1f%% | RAM: %.1f%% | DISK: %.1f%%\n",
-			payload.CPUUsage, payload.MemUsage, payload.DiskUsage)
+		fmt.Printf(" [📊 МЕТРИКИ] CPU: %.1f%% | RAM: %.1f%% | DISK: %.1f%% | 🔑 TOKEN: %s\n",
+			payload.CPUUsage, payload.MemUsage, payload.DiskUsage, payload.ServerToken)
 
 		// Запускаем отправку в горутине, чтобы сетевые задержки не тормозили таймер
 		go sendMetrics(client, metricsURL, payload)
