@@ -173,15 +173,17 @@ func sendMetrics(client *http.Client, url string, payload *MetricsPayload) {
 		return
 	}
 
+	// ИСПРАВЛЕНИЕ: Дублируем токен в HTTP-заголовок, чтобы Django View (request.headers.get) успешно принял его
+	req.Header.Set("X-Agent-Token", payload.ServerToken)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
 	if err != nil {
-		// Если CRM перезагружается, агент не упадет, а просто пропустит тик
+		// Если CRM временно недоступна, агент просто пропустит этот тик
 		return
 	}
 
-	// Обязательно вычитываем и закрываем боди, чтобы не вешать дескрипторы
+	// Обязательно вычитываем и закрываем боди, чтобы не вешать дескрипторы системы
 	io.Copy(io.Discard, resp.Body)
 	resp.Body.Close()
 }
