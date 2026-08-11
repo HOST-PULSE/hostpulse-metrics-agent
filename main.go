@@ -173,7 +173,6 @@ func sendMetrics(client *http.Client, url string, payload *MetricsPayload) {
 		return
 	}
 
-	// ИСПРАВЛЕНИЕ: Дублируем токен в HTTP-заголовок, чтобы Django View (request.headers.get) успешно принял его
 	req.Header.Set("X-Agent-Token", payload.ServerToken)
 	req.Header.Set("Content-Type", "application/json")
 
