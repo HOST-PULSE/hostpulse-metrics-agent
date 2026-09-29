@@ -174,6 +174,7 @@ func sendMetrics(client *http.Client, url string, payload *MetricsPayload) {
 	}
 
 	req.Header.Set("X-Agent-Token", payload.ServerToken)
+	req.Header.Set("X-Agent-Type", 'metrics_agent_linux')
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
