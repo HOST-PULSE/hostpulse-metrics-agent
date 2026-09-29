@@ -59,7 +59,7 @@ func main() {
 		payload := collectPureGoMetrics()
 		// На лету привязываем токен к пакету метрик
 		payload.ServerToken = agentToken
-		payload.AgentType = 'metrics_agent_linux'
+		payload.AgentType = "metrics_agent_linux"
 
 		fmt.Printf(" [📊 МЕТРИКИ] CPU: %.1f%% | RAM: %.1f%% | DISK: %.1f%% \n",
 			payload.CPUUsage, payload.MemUsage, payload.DiskUsage)
@@ -176,7 +176,7 @@ func sendMetrics(client *http.Client, url string, payload *MetricsPayload) {
 	}
 
 	req.Header.Set("X-Agent-Token", payload.ServerToken)
-	req.Header.Set("X-Agent-Type", 'metrics_agent_linux')
+	req.Header.Set("X-Agent-Type", "metrics_agent_linux")
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
