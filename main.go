@@ -16,6 +16,7 @@ import (
 
 // Синхронизировали структуру с Django Serializer
 type MetricsPayload struct {
+	AgentType   string   `json:"agent_type"`
 	ServerToken string  `json:"server_token"` // Передаем токен прямо внутри JSON
 	CPUUsage    float64 `json:"cpu_usage"`
 	MemUsage    float64 `json:"ram_usage"`    // В Django поле называется ram_usage
@@ -58,6 +59,7 @@ func main() {
 		payload := collectPureGoMetrics()
 		// На лету привязываем токен к пакету метрик
 		payload.ServerToken = agentToken
+		payload.AgentType = 'metrics_agent_linux'
 
 		fmt.Printf(" [📊 МЕТРИКИ] CPU: %.1f%% | RAM: %.1f%% | DISK: %.1f%% \n",
 			payload.CPUUsage, payload.MemUsage, payload.DiskUsage)
